@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
+import { MdDashboard, MdImportContacts, MdTableRows } from "react-icons/md";
+import { MdAccountCircle, MdTableChart, MdBookmarks } from "react-icons/md";
 const sidebar = () => {
   return (
     <nav className="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -9,13 +10,13 @@ const sidebar = () => {
           <div className="sb-sidenav-menu-heading">Core</div>
           <Link className="nav-link" to="/admin/dashboard">
             <div className="sb-nav-link-icon">
-              <i className="fas fa-tachometer-alt"></i>
+              <MdDashboard size="1rem" color="cornflowerblue" />
             </div>
             Dashboard
           </Link>
           <Link className="nav-link" to="/admin/profile">
             <div className="sb-nav-link-icon">
-              <i className="fas fa-tachometer-alt"></i>
+              <MdAccountCircle size="1rem" color="cornflowerblue" />
             </div>
             Profile
           </Link>
@@ -30,7 +31,7 @@ const sidebar = () => {
             aria-controls="collapseLayouts"
           >
             <div className="sb-nav-link-icon">
-              <i className="fas fa-columns"></i>
+              <MdImportContacts size="1rem" color="cornflowerblue" />
             </div>
             Layouts
             <div className="sb-sidenav-collapse-arrow">
@@ -61,7 +62,7 @@ const sidebar = () => {
             aria-controls="collapsePages"
           >
             <div className="sb-nav-link-icon">
-              <i className="fas fa-book-open"></i>
+              <MdBookmarks size="1rem" color="cornflowerblue" />
             </div>
             Pages
             <div className="sb-sidenav-collapse-arrow">
@@ -145,13 +146,13 @@ const sidebar = () => {
           <div className="sb-sidenav-menu-heading">Addons</div>
           <Link className="nav-link" to="charts.html">
             <div className="sb-nav-link-icon">
-              <i className="fas fa-chart-area"></i>
+              <MdTableChart size="1rem" color="cornflowerblue" />
             </div>
             Charts
           </Link>
           <Link className="nav-link" to="tables.html">
             <div className="sb-nav-link-icon">
-              <i className="fas fa-table"></i>
+              <MdTableRows size="1rem" color="cornflowerblue" />
             </div>
             Tables
           </Link>

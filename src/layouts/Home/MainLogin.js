@@ -68,10 +68,10 @@ function MainLogin() {
                             onChange={handleInput}
                             value={loginInput.email}
                           />
-                          <span className="text-center text-white">
-                            {loginInput.error_list.email}
-                          </span>
                         </div>
+                        <span className="text-center text-white">
+                          {loginInput.error_list.email}
+                        </span>
                         <div className="form-group mb-md-0">
                           <input
                             className="form-control"
@@ -83,10 +83,10 @@ function MainLogin() {
                             onChange={handleInput}
                             value={loginInput.password}
                           />
-                          <span className="text-center text-white">
-                            {loginInput.error_list.password}
-                          </span>
                         </div>
+                        <span className="text-center text-white">
+                          {loginInput.error_list.password}
+                        </span>
                       </div>
 
                       <div className="text-center">
