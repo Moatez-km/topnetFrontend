@@ -23,11 +23,18 @@ function MainLogin() {
     axios.get("/sanctum/csrf-cookie").then((response) => {
       axios.post("api/login", data).then((res) => {
         if (res.data.status === 200) {
-          localStorage.setItem("auth_token", res.data.token);
-          localStorage.setItem("auth_name", res.data.username);
-          swal("Success", res.data.message, "success");
+          if (res.data.role === "admin") {
+            localStorage.setItem("auth_token", res.data.token);
+            localStorage.setItem("auth_name", res.data.username);
+            swal("Success", res.data.message, "success");
 
-          navigate("/admin/dashboard");
+            navigate("/admin/dashboard");
+          } else if (res.data.role === "user") {
+            localStorage.setItem("auth_token", res.data.token);
+            localStorage.setItem("auth_name", res.data.username);
+            swal("Success", res.data.message, "success");
+            navigate("/");
+          }
         } else if (res.data.status === 401) {
           swal("Warning", "invalid Credentiels", "warning");
         } else {
