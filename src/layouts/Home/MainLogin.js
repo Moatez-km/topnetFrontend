@@ -33,7 +33,7 @@ function MainLogin() {
             localStorage.setItem("auth_token", res.data.token);
             localStorage.setItem("auth_name", res.data.username);
             swal("Success", res.data.message, "success");
-            navigate("/");
+            navigate("/user");
           }
         } else if (res.data.status === 401) {
           swal("Warning", "invalid Credentiels", "warning");

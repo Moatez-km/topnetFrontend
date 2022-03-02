@@ -2016,7 +2016,7 @@ progress {
   margin-bottom: 1rem;
   color: #212529;
   vertical-align: top;
-  border-color: white;
+  border-color: #dee2e6;
 }
 .table > :not(caption) > * > *,
 .dataTable-table > :not(caption) > * > * {
@@ -8372,24 +8372,7 @@ fieldset:disabled .btn {
 
 .bg-dark {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-dark-rgb), var(--bs-bg-opacity)) !important;
-}
-.bg-dark1 {
-  --bs-bg-opacity: 1;
-
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(9, 9, 121, 1) 35%,
-    rgba(0, 185, 255, 1) 100%
-  );
-}
-.bg-dark2 {
-  background: radial-gradient(
-    circle,
-    rgba(63, 94, 251, 1) 0%,
-    rgba(21, 23, 98, 1) 56%
-  );
+  background-color: #154360 !important;
 }
 
 .bg-black {
@@ -12019,11 +12002,11 @@ body {
 }
 
 .sb-sidenav-dark {
-  background-color: #212529;
+  background-color: #154360;
   color: rgba(255, 255, 255, 0.5);
 }
 .sb-sidenav-dark .sb-sidenav-menu .sb-sidenav-menu-heading {
-  color: white;
+  color: #cacfd2;
 }
 .sb-sidenav-dark .sb-sidenav-menu .nav-link {
   color: rgba(255, 255, 255, 0.5);

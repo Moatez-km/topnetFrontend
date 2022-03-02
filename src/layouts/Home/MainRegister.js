@@ -28,7 +28,7 @@ function MainRegister() {
           localStorage.setItem("auth_name", res.data.username);
           swal("Success", res.data.message, "success");
 
-          navigate("/");
+          navigate("/user");
         } else {
           setRegister({
             ...registerInput,
