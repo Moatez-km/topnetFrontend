@@ -1,49 +1,62 @@
-import axios from "axios";
-import React, { useState } from "react";
-import swal from "sweetalert";
+import React, { useEffect, useState } from "react";
 import MasterLayout from "../../layouts/admin/MasterLayout";
-import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-function AddUser() {
-  const navigate = useNavigate();
-  const [userInput, setUserInput] = useState({
-    name: "",
-    email: "",
-    password: "",
-    role_as: "",
-    error_list: [],
-  });
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import swal from "sweetalert";
 
+function EditUser() {
+  const navigate = useNavigate();
+  const [userInput, setUserInput] = useState({});
+  // const [error, setError] = useState({});
   const handleInput = (e) => {
     e.persist();
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
   };
 
-  const submitUser = (e) => {
-    e.preventDefault();
-    const data = {
-      name: userInput.name,
-      email: userInput.email,
-      password: userInput.password,
-      role_as: userInput.role_as,
-    };
-    axios.post("/api/store-user", data).then((res) => {
+  useEffect(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const page_type = urlParams.get("id");
+    //console.log(user_id);
+    // const user_id = props.match.params.id;
+    axios.get(`/api/edituser/${page_type}`).then((res) => {
       if (res.data.status === 200) {
-        swal("Success", res.data.message, "success");
-
-        navigate("/admin/dashboard");
-      } else if (res.data.status === 400) {
-        setUserInput({ ...userInput, error_list: res.data.errors });
+        setUserInput(res.data.user);
+      } else if (res.data.status === 404) {
+        swal("error", res.data.message, "error");
+        navigate("admin/dashboard");
       }
     });
-  };
+  }, [navigate]);
+  /*const updateUser = (e) => {
+    const queryString = window.location.search;
 
+    const urlParams = new URLSearchParams(queryString);
+
+    const page_type = urlParams.get("id");
+    e.preventDefault();
+    const data = userInput;
+    axios.put(`/api/updateUser/${page_type}`, data).then((res) => {
+      if (res.data.status === 200) {
+        swal("Success", res.data.message, "success");
+        navigate("/admin/dashboard");
+        setError([]);
+      } else if (res.data.status === 422) {
+        setError(res.data.errors);
+        swal("Error mendatory", "", "error");
+      } else if (res.data.status === 404) {
+        swal("Error", res.data.message, "error");
+        navigate("/admin/dashboard");
+      }
+    });
+  };*/
   return (
     <MasterLayout>
       <div className="container-fluid px-4">
         <div className="card mt-4 ">
           <div className="card-header">
-            <h2>Add New User</h2>
+            <h2>Edit User</h2>
             <Link
               to="/admin/dashboard"
               className="btn btn-primary btn-sm float-end"
@@ -52,7 +65,6 @@ function AddUser() {
             </Link>
           </div>
         </div>
-
         <ul className="nav nav-tabs" id="myTab" role="tablist">
           <li className="nav-item" role="presentation">
             <button
@@ -68,20 +80,6 @@ function AddUser() {
               Home
             </button>
           </li>
-          <li className="nav-item" role="presentation">
-            <button
-              className="nav-link"
-              id="profile-tab"
-              data-bs-toggle="tab"
-              data-bs-target="#profile"
-              type="button"
-              role="tab"
-              aria-controls="profile"
-              aria-selected="false"
-            >
-              Profile
-            </button>
-          </li>
         </ul>
         <div className="tab-content" id="myTabContent">
           <div
@@ -92,9 +90,11 @@ function AddUser() {
           >
             <br></br>
             <br></br>
-            <form onSubmit={submitUser} id="User_form">
+
+            <form>
               <div className="form-group mb-3">
                 <label>Name</label>
+
                 <input
                   type="text"
                   name="name"
@@ -103,7 +103,7 @@ function AddUser() {
                   className="form-control"
                 />
               </div>
-              <span>{userInput.error_list.name}</span>
+
               <div className="form-group mb-3">
                 <label>Email</label>
                 <input
@@ -113,19 +113,8 @@ function AddUser() {
                   value={userInput.email}
                   className="form-control"
                 />
-                <span>{userInput.error_list.email}</span>
               </div>
-              <div className="form-group mb-3">
-                <label>Password</label>
-                <input
-                  type="password"
-                  name="password"
-                  className="form-control"
-                  onChange={handleInput}
-                  value={userInput.password}
-                />
-                <span>{userInput.error_list.password}</span>
-              </div>
+
               <div className="form-group mb-3">
                 <label>Select our role</label>
                 <select
@@ -142,16 +131,9 @@ function AddUser() {
                   <option value="service formation">Service formation</option>
                 </select>
               </div>
-              <div
-                className="tab-pane fade card-body border"
-                id="profile"
-                role="tabpanel"
-                aria-labelledby="profile-tab"
-              >
-                ...
-              </div>
+
               <button type="submit" className="btn btn-primary px-4 float-end">
-                Submit
+                Update
               </button>
             </form>
           </div>
@@ -161,4 +143,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default EditUser;

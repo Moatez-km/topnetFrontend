@@ -102,6 +102,7 @@ const sidebar = () => {
                   <Link className="nav-link" to="/admin/addNewUser">
                     Add New User
                   </Link>
+
                   <Link className="nav-link" to="register.html">
                     Register
                   </Link>

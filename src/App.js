@@ -8,6 +8,7 @@ import MainLayout from "./layouts/Home/MainLayout";
 import Register from "./layouts/Home/Register";
 import Userlayout from "./layouts/user/Userlayout";
 import AddUser from "./components/admin/AddUser";
+import EditUser from "./components/admin/EditUser";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.withCredentials = true;
@@ -27,6 +28,7 @@ function App() {
           <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path="/admin/profile" element={<Profile />} />
           <Route path="/admin/addNewUser" element={<AddUser />} />
+          <Route path="/admin/edituser" element={<EditUser />} />
           <Route path="/user" element={<Userlayout />} />
         </Routes>
       </Router>
