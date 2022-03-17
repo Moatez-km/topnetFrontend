@@ -15,20 +15,48 @@ function Dashboard() {
     });
   }, []);
 
-  const deleteUser = (e, _id) => {
+  const changeStatut = (e, _id) => {
     e.preventDefault();
     const thisClicked = e.currentTarget;
-    thisClicked.innerText = "Deleting";
-    axios.delete(`api/deleteUser/${_id}`).then((res) => {
+    thisClicked.innerText = "changing";
+    axios.put(`api/changeStatut/${_id}`).then((res) => {
       if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
-        thisClicked.closest("tr").remove();
+        window.location.reload();
+        thisClicked.closest("tr");
       } else if (res.data.status === 404) {
         swal("Error", res.data.message, "error");
-        thisClicked.innerText = "Delete";
+        //thisClicked.innerText = "Delete";
       }
     });
   };
+  /*changeStatut = (e) => {
+    const queryString = window.location.search;
+
+    const urlParams = new URLSearchParams(queryString);
+
+    const page_type = urlParams.get("id");
+    e.preventDefault();
+    let data = {
+      
+      statut: this.state.statut,
+    };
+    // data = { user: data };
+    //console.log(data);
+    axios.put(`/api/changeStatut/${page_type}`, data).then((res) => {
+      if (res.data.status === 200) {
+        swal("Success", res.data.message, "success");
+        this.props.navigate("/admin/dashboard");
+        this.setState({ error: "" });
+      } else if (res.data.status === 422) {
+        this.setState({ error: res.data.errors });
+        swal("Error mendatory", "", "error");
+      } else if (res.data.status === 404) {
+        swal("Error", res.data.message, "error");
+        this.props.navigate("/admin/dashboard");
+      }
+    });
+  };*/
   var viewAllUsersTable = UserList.map((item, pos) => {
     return (
       <tr key={pos}>
@@ -37,6 +65,7 @@ function Dashboard() {
         <td>{item.name}</td>
         <td>{item.email}</td>
         <td>{item.role_as}</td>
+        <td>{item.statut}</td>
         <td>
           <Link
             to={`/admin/edituser?id=${item._id}`}
@@ -49,7 +78,7 @@ function Dashboard() {
           <button
             type="button"
             className="btn btn-danger btn sm"
-            onClick={(e) => deleteUser(e, item._id)}
+            onClick={(e) => changeStatut(e, item._id)}
           >
             <MdDeleteForever size="1rem" color="white" />
           </button>
@@ -82,6 +111,7 @@ function Dashboard() {
               <th>Email</th>
 
               <th>Role</th>
+              <th>Statut</th>
               <th>Edit</th>
               <th>Delete</th>
             </tr>
