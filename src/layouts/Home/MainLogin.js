@@ -29,11 +29,42 @@ function MainLogin() {
             swal("Success", res.data.message, "success");
 
             navigate("/admin/dashboard");
-          } else if (res.data.role === "user") {
+          } else if (
+            res.data.role === "user" &&
+            res.data.statut === "activer"
+          ) {
             localStorage.setItem("auth_token", res.data.token);
             localStorage.setItem("auth_name", res.data.username);
             swal("Success", res.data.message, "success");
             navigate("/user");
+          } else if (
+            res.data.role === "user" &&
+            res.data.statut === "désactiver"
+          ) {
+            swal("Warning", "votre compte est désactiver", "warning");
+          } else if (
+            res.data.role === "service formation" &&
+            res.data.statut === "activer" &&
+            res.data.firstlogin !== ""
+          ) {
+            localStorage.setItem("auth_token", res.data.token);
+            localStorage.setItem("auth_name", res.data.username);
+            swal("Success", res.data.message, "success");
+            navigate("/user");
+          } else if (
+            res.data.role === "service formation" &&
+            res.data.statut === "activer" &&
+            res.data.firstlogin === ""
+          ) {
+            localStorage.setItem("auth_token", res.data.token);
+            localStorage.setItem("auth_name", res.data.username);
+            swal("Success", res.data.message, "success");
+            navigate("/forgot");
+          } else if (
+            res.data.role === "service formation" &&
+            res.data.statut === "désactiver"
+          ) {
+            swal("Warning", "votre compte est désactiver", "warning");
           }
         } else if (res.data.status === 401) {
           swal("Warning", "invalid Credentiels", "warning");
@@ -113,7 +144,7 @@ function MainLogin() {
                 Don't have an account ? <Link to="/register">Sign Up</Link>
               </h5>
               <br />
-              <Link to="#">Forgot your password ?</Link>
+              <Link to="/forgot">Forgot your password ?</Link>
             </div>
           </div>
         </div>

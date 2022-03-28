@@ -27,7 +27,6 @@ function AddUser() {
       email: userInput.email,
       password: userInput.password,
       role_as: userInput.role_as,
-      statut: userInput.statut,
     };
     axios.post("/api/store-user", data).then((res) => {
       if (res.data.status === 200) {
@@ -144,19 +143,7 @@ function AddUser() {
                   <option value="service formation">Service formation</option>
                 </select>
               </div>
-              <div className="form-group mb-3">
-                <label>Select our staut</label>
-                <select
-                  className="form-select"
-                  aria-label="Default select example"
-                  onChange={handleInput}
-                  name="statut"
-                  value={userInput.statut}
-                >
-                  <option value="activer">Activer</option>
-                  <option value="désactiver">Désactiver</option>
-                </select>
-              </div>
+
               <div
                 className="tab-pane fade card-body border"
                 id="profile"

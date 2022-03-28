@@ -21,7 +21,6 @@ function Dashboard() {
     thisClicked.innerText = "changing";
     axios.put(`api/changeStatut/${_id}`).then((res) => {
       if (res.data.status === 200) {
-        swal("Success", res.data.message, "success");
         window.location.reload();
         thisClicked.closest("tr");
       } else if (res.data.status === 404) {
