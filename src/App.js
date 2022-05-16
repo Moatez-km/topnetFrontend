@@ -6,11 +6,15 @@ import Profile from "./components/admin/profile";
 import Login from "./layouts/Home/Login";
 import MainLayout from "./layouts/Home/MainLayout";
 import Register from "./layouts/Home/Register";
-import Userlayout from "./layouts/user/Userlayout";
+import Userlayout from "./layouts/ServiceFormation/Userlayout";
 import AddUser from "./components/admin/AddUser";
 import EditUser from "./components/admin/EditUser";
 import Forgot from "./layouts/Home/Forgot";
 import Reset from "./layouts/Home/Reset";
+import Questionshow from "./components/serviceformation/Questionshow";
+import EditQuestion from "./components/serviceformation/EditQuestion";
+import AddQuestion from "./components/serviceformation/AddQuestion";
+import AddResponses from "./components/serviceformation/AddResponses";
 
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.withCredentials = true;
@@ -33,7 +37,11 @@ function App() {
           <Route path="/admin/profile" element={<Profile />} />
           <Route path="/admin/addNewUser" element={<AddUser />} />
           <Route path="/admin/edituser" element={<EditUser />} />
-          <Route path="/user" element={<Userlayout />} />
+          <Route path="/serviceformation" element={<Userlayout />} />
+          <Route path="/Questionshow" element={<Questionshow />} />
+          <Route path="/editQuestion" element={<EditQuestion />} />
+          <Route path="/addNewQuestion" element={<AddQuestion />} />
+          <Route path="/addNewResponse" element={<AddResponses />} />
         </Routes>
       </Router>
     </div>

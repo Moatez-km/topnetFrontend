@@ -68,7 +68,7 @@ const MainReset = () => {
                           <input
                             className="form-control"
                             id="password"
-                            type="text"
+                            type="password"
                             name="password"
                             placeholder="Your Password *"
                             onChange={handleInput}

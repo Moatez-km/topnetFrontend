@@ -36,7 +36,7 @@ const sidebar = () => {
             <div className="sb-nav-link-icon">
               <MdImportContacts size="1rem" color="white " />
             </div>
-            Layouts
+            Préparation Examens
             <div className="sb-sidenav-collapse-arrow">
               <i className="fas fa-angle-down"></i>
             </div>
@@ -48,11 +48,14 @@ const sidebar = () => {
             data-bs-parent="#sidenavAccordion"
           >
             <nav className="sb-sidenav-menu-nested nav">
-              <Link className="nav-link" to="layout-static.html">
-                Static Navigation
+              <Link className="nav-link" to="/Questionshow">
+                Dashbord Questions
               </Link>
-              <Link className="nav-link" to="layout-sidenav-light.html">
-                Light Sidenav
+              <Link className="nav-link" to="/addNewQuestion">
+                Ajouter Questions
+              </Link>
+              <Link className="nav-link" to="/addNewResponse">
+                Ajouter Réponses
               </Link>
             </nav>
           </div>

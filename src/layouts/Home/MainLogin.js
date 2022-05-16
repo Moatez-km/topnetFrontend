@@ -25,7 +25,8 @@ function MainLogin() {
         if (res.data.status === 200) {
           if (res.data.role === "admin") {
             localStorage.setItem("auth_token", res.data.token);
-            localStorage.setItem("auth_name", res.data.username);
+            localStorage.setItem("currentuser", JSON.stringify(res.data.user));
+
             swal("Success", res.data.message, "success");
 
             navigate("/admin/dashboard");
@@ -50,7 +51,7 @@ function MainLogin() {
             localStorage.setItem("auth_token", res.data.token);
             localStorage.setItem("auth_name", res.data.username);
             swal("Success", res.data.message, "success");
-            navigate("/user");
+            navigate("/serviceformation");
           } else if (
             res.data.role === "service formation" &&
             res.data.statut === "activer" &&

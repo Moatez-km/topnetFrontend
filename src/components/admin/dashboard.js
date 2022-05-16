@@ -9,6 +9,7 @@ function Dashboard() {
   useEffect(() => {
     axios.get("/api/allUsers").then((res) => {
       // console.log(res.data.user);
+
       if (res.status === 200) {
         setUserList(res.data.user);
       }
@@ -59,8 +60,14 @@ function Dashboard() {
   var viewAllUsersTable = UserList.map((item, pos) => {
     return (
       <tr key={pos}>
-        <td>{pos}</td>
-
+        <td>{item.matricule}</td>
+        <td>
+          <img
+            src={`http://localhost:8000/${item.image}`}
+            width="50px"
+            alt="Image"
+          />
+        </td>
         <td>{item.name}</td>
         <td>{item.email}</td>
         <td>{item.role_as}</td>
@@ -76,7 +83,8 @@ function Dashboard() {
         <td>
           <button
             type="button"
-            className="btn btn-danger btn sm"
+            className=" btn btn-danger btn sm"
+            color="red"
             onClick={(e) => changeStatut(e, item._id)}
           >
             <MdDeleteForever size="1rem" color="white" />
@@ -105,7 +113,8 @@ function Dashboard() {
         <table className="table table-bordered table-striped">
           <thead>
             <tr>
-              <th>ID</th>
+              <th>Matricule</th>
+              <th>Image</th>
               <th>Name</th>
               <th>Email</th>
 

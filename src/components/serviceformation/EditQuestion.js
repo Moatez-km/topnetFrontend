@@ -1,82 +1,33 @@
 import React from "react";
-import MasterLayout from "../../layouts/admin/MasterLayout";
+import Userlayout from "../../layouts/ServiceFormation/Userlayout";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 import swal from "sweetalert";
-
-class EditUser extends React.Component {
+class EditQuestion extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", email: "", role_as: "", statut: "", error: "" };
+    this.state = { question: "", niveau: "", time: "", type: "", error: "" };
+    this.niveau = { niv1: 1, niv2: 2, niv3: 3 };
+    this.time = { minute: 60, troiquartMinute: 45, demiMinute: 30 };
     this.handleStatusChange = this.handleStatusChange.bind(this);
   }
-  //const [userInput, setUserInput] = useState({});
-  // const [error, setError] = useState({});
-  /* const handleInput = (e) => {
-    e.persist();
-    setUserInput({ ...userInput, [e.target.name]: e.target.value });
-  };
 
-  /*useEffect(() => {
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const page_type = urlParams.get("id");
-    //console.log(user_id);
-    // const user_id = props.match.params.id;
-    axios.get(`/api/edituser/${page_type}`).then((res) => {
-      if (res.data.status === 200) {
-        setUserInput(res.data.user);
-      } else if (res.data.status === 404) {
-        swal("error", res.data.message, "error");
-        navigate("admin/dashboard");
-      }
-    });
-  }, [navigate]);*/
-  updateUser = (e) => {
-    const queryString = window.location.search;
-
-    const urlParams = new URLSearchParams(queryString);
-
-    const page_type = urlParams.get("id");
-    e.preventDefault();
-    let data = {
-      name: this.state.name,
-      email: this.state.email,
-      role_as: this.state.role_as,
-      statut: this.state.statut,
-    };
-    // data = { user: data };
-    //console.log(data);
-    axios.put(`/api/updateUser/${page_type}`, data).then((res) => {
-      if (res.data.status === 200) {
-        swal("Success", res.data.message, "success");
-        this.props.navigate("/admin/dashboard");
-        this.setState({ error: "" });
-      } else if (res.data.status === 422) {
-        this.setState({ error: res.data.errors });
-        swal("Error mendatory", "", "error");
-      } else if (res.data.status === 404) {
-        swal("Error", res.data.message, "error");
-        this.props.navigate("/admin/dashboard");
-      }
-    });
-  };
   componentDidMount() {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const page_type = urlParams.get("id");
     //console.log(user_id);
     // const user_id = props.match.params.id;
-    axios.get(`/api/edituser/${page_type}`).then((res) => {
+    axios.get(`/api/editQuestion/${page_type}`).then((res) => {
       if (res.data.status === 200) {
         // console.log(res.data.user);
         this.setState({
-          name: res.data.user.name,
-          email: res.data.user.email,
-          role_as: res.data.user.role_as,
-          statut: res.data.user.statut,
+          question: res.data.question.question,
+          time: res.data.question.time,
+          niveau: res.data.question.niveau,
+          type: res.data.question.type,
         });
       } else if (res.data.status === 404) {
         swal("error", res.data.message, "error");
@@ -84,15 +35,44 @@ class EditUser extends React.Component {
     });
   }
   handleStatusChange() {}
+  updateQuestion = (e) => {
+    const queryString = window.location.search;
+
+    const urlParams = new URLSearchParams(queryString);
+
+    const page_type = urlParams.get("id");
+    e.preventDefault();
+    let data = {
+      question: this.state.question,
+      time: this.state.time,
+      niveau: this.state.niveau,
+      type: this.state.type,
+    };
+    // data = { user: data };
+    //console.log(data);
+    axios.put(`/api/updateQuestion/${page_type}`, data).then((res) => {
+      if (res.data.status === 200) {
+        swal("Success", res.data.message, "success");
+        this.props.navigate("/Questionshow");
+        this.setState({ error: "" });
+      } else if (res.data.status === 422) {
+        this.setState({ error: res.data.errors });
+        swal("Error mendatory", "", "error");
+      } else if (res.data.status === 404) {
+        swal("Error", res.data.message, "error");
+        this.props.navigate("/Questionshow");
+      }
+    });
+  };
   render() {
     return (
-      <MasterLayout>
+      <Userlayout>
         <div className="container-fluid px-4">
           <div className="card mt-4 ">
             <div className="card-header">
               <h2>Edit User</h2>
               <Link
-                to="/admin/dashboard"
+                to="/Questionshow"
                 className="btn btn-primary btn-sm float-end"
               >
                 Back
@@ -122,75 +102,83 @@ class EditUser extends React.Component {
               role="tabpanel"
               aria-labelledby="home-tab"
             >
+              Notez bien pour les niveaux des questions:<br></br>
+              1.<b>Niveau 1 :</b>Stage PFE<br></br>
+              2.<b>Niveau 2 :</b>Stage d'observation<br></br>
+              3.<b>Niveau 3 :</b>Stage de perfectionnement
               <br></br>
               <br></br>
-
               <form>
                 <div className="form-group mb-3">
-                  <label>Name</label>
+                  <label>Question</label>
 
-                  <input
+                  <textarea
                     type="text"
-                    name="name"
+                    name="question"
                     onChange={(event) =>
-                      this.setState({ name: event.target.value })
+                      this.setState({ question: event.target.value })
                     }
-                    value={this.state.name}
+                    value={this.state.question}
                     className="form-control"
-                  />
+                  ></textarea>
                 </div>
 
                 <div className="form-group mb-3">
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    name="email"
-                    onChange={(event) =>
-                      this.setState({ email: event.target.value })
-                    }
-                    value={this.state.email}
-                    className="form-control"
-                  />
-                </div>
-
-                <div className="form-group mb-3">
-                  <label>Select our role</label>
+                  <label>Temps en seconde</label>
                   <select
                     className="form-select"
                     aria-label="Default select example"
                     onChange={(event) =>
-                      this.setState({ role_as: event.target.value })
+                      this.setState({ time: event.target.value })
                     }
-                    name="role_as"
-                    value={this.state.role_as}
+                    name="time"
+                    value={this.state.time}
                   >
-                    <option value="admin">Admin</option>
-                    <option value="encadrant">Encadrant</option>
-                    <option value="user">User</option>
-                    <option value="chef departement">Chef departement</option>
-                    <option value="service formation">Service formation</option>
+                    <option value={this.time.minute}>60 secondes</option>
+                    <option value={this.time.troiquartMinute}>
+                      45 secondes
+                    </option>
+                    <option value={this.time.demiMinute}>30 secondes</option>
                   </select>
                 </div>
                 <div className="form-group mb-3">
-                  <label>Select our statut</label>
+                  <label>Niveau</label>
                   <select
                     className="form-select"
                     aria-label="Default select example"
                     onChange={(event) =>
-                      this.setState({ statut: event.target.value })
+                      this.setState({ niveau: event.target.value })
                     }
-                    name="statut"
-                    value={this.state.statut}
+                    name="niveau"
+                    value={this.state.niveau}
                   >
-                    <option value="activer">Activer</option>
-                    <option value="désactiver">Désactiver</option>
+                    <option value={this.niveau.niv1}>Niveau 1</option>
+                    <option value={this.niveau.niv2}>Niveau 2</option>
+                    <option value={this.niveau.niv3}>Niveau 3</option>
+                  </select>
+                </div>
+
+                <div className="form-group mb-3">
+                  <label>Type de question</label>
+                  <select
+                    className="form-select"
+                    aria-label="Default select example"
+                    onChange={(event) =>
+                      this.setState({ type: event.target.value })
+                    }
+                    name="type"
+                    value={this.state.type}
+                  >
+                    <option value="faible">Faible</option>
+                    <option value="moyenne">Moyenne</option>
+                    <option value="élevée">Elevé</option>
                   </select>
                 </div>
 
                 <button
                   type="submit"
                   className="btn btn-primary px-4 float-end"
-                  onClick={this.updateUser}
+                  onClick={this.updateQuestion}
                 >
                   Update
                 </button>
@@ -198,13 +186,13 @@ class EditUser extends React.Component {
             </div>
           </div>
         </div>
-      </MasterLayout>
+      </Userlayout>
     );
   }
 }
-
-const NWEditUser = (props) => {
+const NWEditQuestion = (props) => {
   const navigate = useNavigate();
-  return <EditUser navigate={navigate} {...props} />;
+  return <EditQuestion navigate={navigate} {...props} />;
 };
-export default NWEditUser;
+
+export default NWEditQuestion;

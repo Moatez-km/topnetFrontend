@@ -9,31 +9,54 @@ function AddUser() {
   const [userInput, setUserInput] = useState({
     name: "",
     email: "",
+    matricule: "",
+    description: "",
+
+    loginTopnet: "",
+
     password: "",
     role_as: "",
     statut: "",
     error_list: [],
   });
+  const [picture, setPicture] = useState([]);
 
   const handleInput = (e) => {
     e.persist();
     setUserInput({ ...userInput, [e.target.name]: e.target.value });
   };
-
+  const handleImage = (e) => {
+    e.persist();
+    setPicture({ image: e.target.files[0] });
+  };
   const submitUser = (e) => {
     e.preventDefault();
-    const data = {
+    /*const data = {
       name: userInput.name,
       email: userInput.email,
       password: userInput.password,
       role_as: userInput.role_as,
-    };
-    axios.post("/api/store-user", data).then((res) => {
+      matricule: userInput.matricule,
+      loginTopnet: userInput.loginTopnet,
+      description: userInput.description,
+      image: picture.image,
+    };*/
+    const formData = new FormData();
+    formData.append("image", picture.image);
+    formData.append("name", userInput.name);
+    formData.append("email", userInput.email);
+    formData.append("password", userInput.password);
+    formData.append("role_as", userInput.role_as);
+    formData.append("matricule", userInput.matricule);
+    formData.append("loginTopnet", userInput.loginTopnet);
+    formData.append("description", userInput.description);
+
+    axios.post("/api/store-user", formData).then((res) => {
       if (res.data.status === 200) {
         swal("Success", res.data.message, "success");
 
         navigate("/admin/dashboard");
-      } else if (res.data.status === 400) {
+      } else if (res.data.status === 422) {
         setUserInput({ ...userInput, error_list: res.data.errors });
       }
     });
@@ -128,6 +151,39 @@ function AddUser() {
                 <span>{userInput.error_list.password}</span>
               </div>
               <div className="form-group mb-3">
+                <label>Matricule</label>
+                <input
+                  type="number"
+                  name="matricule"
+                  onChange={handleInput}
+                  value={userInput.matricule}
+                  className="form-control"
+                />
+              </div>
+              <span>{userInput.error_list.matricule}</span>
+              <div className="form-group mb-3">
+                <label>Description</label>
+                <input
+                  type="text"
+                  name="description"
+                  onChange={handleInput}
+                  value={userInput.description}
+                  className="form-control"
+                />
+              </div>
+              <span>{userInput.error_list.description}</span>
+              <div className="form-group mb-3">
+                <label>LoginTopnet</label>
+                <input
+                  type="text"
+                  name="loginTopnet"
+                  onChange={handleInput}
+                  value={userInput.loginTopnet}
+                  className="form-control"
+                />
+              </div>
+              <span>{userInput.error_list.loginTopnet}</span>
+              <div className="form-group mb-3">
                 <label>Select our role</label>
                 <select
                   className="form-select"
@@ -138,19 +194,19 @@ function AddUser() {
                 >
                   <option value="admin">Admin</option>
                   <option value="encadrant">Encadrant</option>
-                  <option value="user">User</option>
+
                   <option value="chef departement">Chef departement</option>
                   <option value="service formation">Service formation</option>
                 </select>
               </div>
-
-              <div
-                className="tab-pane fade card-body border"
-                id="profile"
-                role="tabpanel"
-                aria-labelledby="profile-tab"
-              >
-                ...
+              <div className="form-group mb-3">
+                <label>Image</label>
+                <input
+                  type="file"
+                  name="image"
+                  className="form-control"
+                  onChange={handleImage}
+                />
               </div>
               <button type="submit" className="btn btn-primary px-4 float-end">
                 Submit
