@@ -15,7 +15,14 @@ import Questionshow from "./components/serviceformation/Questionshow";
 import EditQuestion from "./components/serviceformation/EditQuestion";
 import AddQuestion from "./components/serviceformation/AddQuestion";
 import AddResponses from "./components/serviceformation/AddResponses";
-
+import LoginStagiaire from "./layouts/Home/LoginStagiaire";
+import ProfileStage from "./components/stagiaire/ProfileStage";
+import StagiaireLayout from "./layouts/stagiaire/StagiaireLayout";
+//encadrant
+import ProfileEnc from "./components/encadrant/ProfileEnc";
+import DashboardEnc from "./components/encadrant/Dashboard";
+//service formation
+import ProfileSer from "./components/serviceformation/ProfileSer";
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.withCredentials = true;
 axios.interceptors.request.use(function (config) {
@@ -30,6 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainLayout />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/stagiaire/login" element={<LoginStagiaire />} />
           <Route path="/register" element={<Register />} />
           <Route path="/forgot" element={<Forgot />} />
           <Route path="/reset" element={<Reset />} />
@@ -42,6 +50,11 @@ function App() {
           <Route path="/editQuestion" element={<EditQuestion />} />
           <Route path="/addNewQuestion" element={<AddQuestion />} />
           <Route path="/addNewResponse" element={<AddResponses />} />
+          <Route path="/serviceformation/profile" element={<ProfileSer />} />
+          <Route path="/stagiaire/profile" element={<ProfileStage />} />
+          <Route path="/stagiaire" element={<StagiaireLayout />} />
+          <Route path="/encadrant/profile" element={<ProfileEnc />} />
+          <Route path="/encadrant/dashboard" element={<DashboardEnc />} />
         </Routes>
       </Router>
     </div>

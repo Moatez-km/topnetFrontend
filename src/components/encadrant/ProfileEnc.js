@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import MasterLayout from "../../layouts/admin/MasterLayout";
+import EncadrantLayout from "../../layouts/Encadrant/EncadrantLayout";
 import "../admin/profile.css";
 
-function Profile() {
+function ProfileEnc() {
   const [UserProfile, setUserProfile] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,8 @@ function Profile() {
     }
   }, []);
   return (
-    <MasterLayout>
+    <EncadrantLayout>
+      {" "}
       <div className="container">
         <div className="row gutters">
           <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
@@ -156,8 +157,8 @@ function Profile() {
           </div>
         </div>
       </div>
-    </MasterLayout>
+    </EncadrantLayout>
   );
 }
 
-export default Profile;
+export default ProfileEnc;

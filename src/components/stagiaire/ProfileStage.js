@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import MasterLayout from "../../layouts/admin/MasterLayout";
+import StageLayout from "../../layouts/stagiaire/StagiaireLayout";
 import "../admin/profile.css";
 
-function Profile() {
+function ProfileStage() {
   const [UserProfile, setUserProfile] = useState([]);
 
   useEffect(() => {
@@ -14,7 +14,8 @@ function Profile() {
     }
   }, []);
   return (
-    <MasterLayout>
+    <StageLayout>
+      {" "}
       <div className="container">
         <div className="row gutters">
           <div className="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
@@ -28,12 +29,8 @@ function Profile() {
                         alt=""
                       />
                     </div>
-                    <h5 className="user-name">{UserProfile.name}</h5>
+                    <h5 className="user-name">{UserProfile.nom}</h5>
                     <h6 className="user-email">{UserProfile.email}</h6>
-                  </div>
-                  <div className="about">
-                    <h5>About</h5>
-                    <p>{UserProfile.description}</p>
                   </div>
                 </div>
               </div>
@@ -54,18 +51,30 @@ function Profile() {
                         className="form-control"
                         id="fullName"
                         placeholder="Enter full name"
-                        value={UserProfile.name}
+                        value={UserProfile.nom}
                       />
                     </div>
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label for="eMail">Email</label>
+                      <label for="eMail">Prenom</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="prenom"
+                        placeholder="Enter votre prenom"
+                        value={UserProfile.prenom}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div className="form-group">
+                      <label for="matricule">Email</label>
                       <input
                         type="email"
                         className="form-control"
-                        id="eMail"
-                        placeholder="Enter email ID"
+                        id="email"
+                        placeholder="Enter votre email"
                         value={UserProfile.email}
                         disabled
                       />
@@ -73,27 +82,13 @@ function Profile() {
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label for="matricule">Matricule</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="matricule"
-                        placeholder="Enter matricule number"
-                        value={UserProfile.matricule}
-                        disabled
-                      />
-                    </div>
-                  </div>
-                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
-                    <div className="form-group">
-                      <label for="website">Login Topnet</label>
+                      <label for="website">tel</label>
                       <input
                         type="url"
                         className="form-control"
-                        id="loginTopnet"
-                        placeholder="Login Topnet"
-                        value={UserProfile.loginTopnet}
-                        disabled
+                        id="tel"
+                        placeholder="Numero telephone"
+                        value={UserProfile.tel}
                       />
                     </div>
                   </div>
@@ -104,24 +99,35 @@ function Profile() {
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label for="Street">Role</label>
+                      <label for="Street">addresse</label>
                       <input
                         type="text"
                         className="form-control"
-                        id="role"
-                        value={UserProfile.role_as}
+                        id="adresse"
+                        value={UserProfile.adresse}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                    <div className="form-group">
+                      <label for="Street">Numéro passeport</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        id="passeport"
+                        value={UserProfile.passeport}
                         disabled
                       />
                     </div>
                   </div>
                   <div className="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
                     <div className="form-group">
-                      <label for="ciTy">Statut</label>
+                      <label for="ciTy">Numéro Cin</label>
                       <input
-                        type="name"
+                        type="text"
                         className="form-control"
-                        id="statut"
-                        value={UserProfile.statut}
+                        id="cin"
+                        value={UserProfile.cin}
                         disabled
                       />
                     </div>
@@ -156,8 +162,8 @@ function Profile() {
           </div>
         </div>
       </div>
-    </MasterLayout>
+    </StageLayout>
   );
 }
 
-export default Profile;
+export default ProfileStage;

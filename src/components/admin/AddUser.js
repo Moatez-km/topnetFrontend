@@ -153,7 +153,7 @@ function AddUser() {
               <div className="form-group mb-3">
                 <label>Matricule</label>
                 <input
-                  type="number"
+                  type="text"
                   name="matricule"
                   onChange={handleInput}
                   value={userInput.matricule}

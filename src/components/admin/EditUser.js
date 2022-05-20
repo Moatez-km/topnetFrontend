@@ -9,7 +9,16 @@ import swal from "sweetalert";
 class EditUser extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { name: "", email: "", role_as: "", statut: "", error: "" };
+    this.state = {
+      name: "",
+      email: "",
+      role_as: "",
+      matricule: "",
+      description: "",
+      loginTopnet: "",
+      statut: "",
+      error: "",
+    };
     this.handleStatusChange = this.handleStatusChange.bind(this);
   }
   //const [userInput, setUserInput] = useState({});
@@ -44,6 +53,9 @@ class EditUser extends React.Component {
     let data = {
       name: this.state.name,
       email: this.state.email,
+      matricule: this.state.matricule,
+      loginTopnet: this.state.loginTopnet,
+      description: this.state.description,
       role_as: this.state.role_as,
       statut: this.state.statut,
     };
@@ -76,6 +88,9 @@ class EditUser extends React.Component {
           name: res.data.user.name,
           email: res.data.user.email,
           role_as: res.data.user.role_as,
+          matricule: res.data.user.matricule,
+          loginTopnet: res.data.user.loginTopnet,
+          description: res.data.user.description,
           statut: res.data.user.statut,
         });
       } else if (res.data.status === 404) {
@@ -150,9 +165,50 @@ class EditUser extends React.Component {
                     }
                     value={this.state.email}
                     className="form-control"
+                    disabled
                   />
                 </div>
+                <div className="form-group mb-3">
+                  <label>Matricule</label>
 
+                  <input
+                    type="text"
+                    name="matricule"
+                    onChange={(event) =>
+                      this.setState({ matricule: event.target.value })
+                    }
+                    value={this.state.matricule}
+                    className="form-control"
+                    disabled
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label>Login Topnet</label>
+
+                  <input
+                    type="text"
+                    name="loginTopnet"
+                    onChange={(event) =>
+                      this.setState({ loginTopnet: event.target.value })
+                    }
+                    value={this.state.loginTopnet}
+                    className="form-control"
+                    disabled
+                  />
+                </div>
+                <div className="form-group mb-3">
+                  <label>Description</label>
+
+                  <input
+                    type="text"
+                    name="description"
+                    onChange={(event) =>
+                      this.setState({ description: event.target.value })
+                    }
+                    value={this.state.description}
+                    className="form-control"
+                  />
+                </div>
                 <div className="form-group mb-3">
                   <label>Select our role</label>
                   <select

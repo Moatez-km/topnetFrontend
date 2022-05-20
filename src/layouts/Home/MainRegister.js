@@ -5,30 +5,54 @@ import { useNavigate } from "react-router-dom";
 function MainRegister() {
   const navigate = useNavigate();
   const [registerInput, setRegister] = useState({
-    name: "",
+    nom: "",
+    prenom: "",
     email: "",
     password: "",
+    cin: "",
+    passeport: "",
+    adresse: "",
+    tel: "",
+    image: "",
     error_list: [],
   });
+  const [picture, setPicture] = useState([]);
   const handleInput = (e) => {
     e.persist();
     setRegister({ ...registerInput, [e.target.name]: e.target.value });
   };
+  const handleImage = (e) => {
+    e.persist();
+    setPicture({ image: e.target.files[0] });
+  };
   const registerSubmit = (e) => {
     e.preventDefault();
-    const data = {
-      name: registerInput.name,
+    /* const data = {
+      nom: registerInput.nom,
+      prenom: registerInput.prenom,
       email: registerInput.email,
       password: registerInput.password,
-    };
+      
+    };*/
+    const formData = new FormData();
+    formData.append("image", picture.image);
+    formData.append("nom", registerInput.nom);
+    formData.append("prenom", registerInput.prenom);
+    formData.append("email", registerInput.email);
+    formData.append("password", registerInput.password);
+    formData.append("cin", registerInput.cin);
+    formData.append("passeport", registerInput.passeport);
+    formData.append("tel", registerInput.tel);
+    formData.append("adresse", registerInput.adresse);
+
     axios.get("/sanctum/csrf-cookie").then((response) => {
-      axios.post("/api/register", data).then((res) => {
+      axios.post("/api/stagiaire/register", formData).then((res) => {
         if (res.data.status === 200) {
           localStorage.setItem("auth_token", res.data.token);
           localStorage.setItem("auth_name", res.data.username);
           swal("Success", res.data.message, "success");
 
-          navigate("/user");
+          navigate("/serviceformation");
         } else {
           setRegister({
             ...registerInput,
@@ -62,17 +86,32 @@ function MainRegister() {
                         <div className="form-group">
                           <input
                             className="form-control"
-                            id="Name"
-                            name="name"
+                            id="nom"
+                            name="nom"
                             type="text"
-                            placeholder="Your Name *"
+                            placeholder="Votre nom *"
                             data-sb-validations="required,Name"
                             onChange={handleInput}
-                            value={registerInput.name}
+                            value={registerInput.nom}
                           />
                         </div>
                         <span className="text-center text-white">
-                          {registerInput.error_list.name}
+                          {registerInput.error_list.nom}
+                        </span>
+                        <div className="form-group">
+                          <input
+                            className="form-control"
+                            id="prenom"
+                            name="prenom"
+                            type="text"
+                            placeholder="Votre prenom *"
+                            data-sb-validations="required,Name"
+                            onChange={handleInput}
+                            value={registerInput.prenom}
+                          />
+                        </div>
+                        <span className="text-center text-white">
+                          {registerInput.error_list.prenom}
                         </span>
                         <div className="form-group">
                           <input
@@ -80,7 +119,7 @@ function MainRegister() {
                             id="email"
                             type="email"
                             name="email"
-                            placeholder="Your Email *"
+                            placeholder="Votre Email *"
                             data-sb-validations="required,email"
                             onChange={handleInput}
                             value={registerInput.email}
@@ -105,6 +144,73 @@ function MainRegister() {
                         <span className="text-center text-white">
                           {registerInput.error_list.password}
                         </span>
+                        <div className="form-group">
+                          <input
+                            className="form-control"
+                            id="cin"
+                            name="cin"
+                            type="text"
+                            placeholder="votre numéro de cin *"
+                            data-sb-validations="required,Name"
+                            onChange={handleInput}
+                            value={registerInput.cin}
+                          />
+                        </div>
+                        <span className="text-center text-white">
+                          {registerInput.error_list.cin}
+                        </span>
+                        <div className="form-group">
+                          <input
+                            className="form-control"
+                            id="passeport"
+                            name="passeport"
+                            type="text"
+                            placeholder="Votre numéro de paseport "
+                            onChange={handleInput}
+                            value={registerInput.passeport}
+                          />
+                        </div>
+                        <span className="text-center text-white">
+                          {registerInput.error_list.passeport}
+                        </span>
+                        <div className="form-group">
+                          <input
+                            className="form-control"
+                            id="adresse"
+                            name="adresse"
+                            type="text"
+                            placeholder="Votre adresse compléte *"
+                            data-sb-validations="required,Name"
+                            onChange={handleInput}
+                            value={registerInput.adresse}
+                          />
+                        </div>
+                        <span className="text-center text-white">
+                          {registerInput.error_list.adresse}
+                        </span>
+                        <div className="form-group">
+                          <input
+                            className="form-control"
+                            id="tel"
+                            name="tel"
+                            type="tel"
+                            placeholder="Votre numéro de téléphone*"
+                            data-sb-validations="required,Name"
+                            onChange={handleInput}
+                            value={registerInput.tel}
+                          />
+                        </div>
+                        <span className="text-center text-white">
+                          {registerInput.error_list.tel}
+                        </span>
+                        <div className="form-control">
+                          <input
+                            type="file"
+                            name="image"
+                            className="form-control"
+                            onChange={handleImage}
+                          />
+                        </div>
                       </div>
 
                       <div className="text-center">

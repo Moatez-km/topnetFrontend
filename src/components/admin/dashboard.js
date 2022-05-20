@@ -65,7 +65,7 @@ function Dashboard() {
           <img
             src={`http://localhost:8000/${item.image}`}
             width="50px"
-            alt="Image"
+            alt=""
           />
         </td>
         <td>{item.name}</td>

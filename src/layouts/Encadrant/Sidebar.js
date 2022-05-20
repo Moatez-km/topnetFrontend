@@ -11,13 +11,13 @@ const sidebar = () => {
       <div className="sb-sidenav-menu">
         <div className="nav">
           <div className="sb-sidenav-menu-heading">Core</div>
-          <Link className="nav-link" to="/admin/dashboard">
+          <Link className="nav-link" to="/encadrant/dashboard">
             <div className="sb-nav-link-icon">
               <MdDashboard size="1rem" color="white " />
             </div>
             Dashboard
           </Link>
-          <Link className="nav-link" to="/serviceformation/profile">
+          <Link className="nav-link" to="/encadrant/profile">
             <div className="sb-nav-link-icon">
               <MdAccountCircle size="1rem" color="white " />
             </div>
@@ -36,7 +36,7 @@ const sidebar = () => {
             <div className="sb-nav-link-icon">
               <MdImportContacts size="1rem" color="white " />
             </div>
-            Préparation Examens
+            Préparation Sujets
             <div className="sb-sidenav-collapse-arrow">
               <i className="fas fa-angle-down"></i>
             </div>
@@ -48,14 +48,11 @@ const sidebar = () => {
             data-bs-parent="#sidenavAccordion"
           >
             <nav className="sb-sidenav-menu-nested nav">
-              <Link className="nav-link" to="/Questionshow">
-                Dashbord Questions
+              <Link className="nav-link" to="/addSujet">
+                Ajouter Sujet
               </Link>
-              <Link className="nav-link" to="/addNewQuestion">
-                Ajouter Questions
-              </Link>
-              <Link className="nav-link" to="/addNewResponse">
-                Ajouter Réponses
+              <Link className="nav-link" to="/updateSujet">
+                Update Sujet
               </Link>
             </nav>
           </div>

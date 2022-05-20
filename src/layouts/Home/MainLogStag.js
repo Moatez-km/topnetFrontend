@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import swal from "sweetalert";
 import { useNavigate } from "react-router-dom";
-function MainLogin() {
+function MainLogStag() {
   const navigate = useNavigate();
   const [loginInput, setLogin] = useState({
-    loginTopnet: "",
+    email: "",
     password: "",
     error_list: [],
   });
@@ -17,70 +17,21 @@ function MainLogin() {
   const loginSubmit = (e) => {
     e.preventDefault();
     const data = {
-      loginTopnet: loginInput.loginTopnet,
+      email: loginInput.email,
       password: loginInput.password,
     };
     axios.get("/sanctum/csrf-cookie").then((response) => {
-      axios.post("api/login", data).then((res) => {
+      axios.post("api/stagiaire/login", data).then((res) => {
         if (res.data.status === 200) {
-          if (res.data.role === "admin") {
-            localStorage.setItem("auth_token", res.data.token);
-            localStorage.setItem("currentuser", JSON.stringify(res.data.user));
+          localStorage.setItem("auth_token", res.data.token);
+          localStorage.setItem(
+            "currentuser",
+            JSON.stringify(res.data.stagiaire)
+          );
 
-            swal("Success", res.data.message, "success");
+          swal("Success", res.data.message, "success");
 
-            navigate("/admin/dashboard");
-          } else if (
-            res.data.role === "encadrant" &&
-            res.data.statut === "activer" &&
-            res.data.firstlogin !== ""
-          ) {
-            localStorage.setItem("auth_token", res.data.token);
-            localStorage.setItem("auth_name", res.data.username);
-            localStorage.setItem("currentuser", JSON.stringify(res.data.user));
-            swal("Success", res.data.message, "success");
-            navigate("/encadrant/dashboard");
-          } else if (
-            res.data.role === "encadrant" &&
-            res.data.statut === "activer" &&
-            res.data.firstlogin === ""
-          ) {
-            localStorage.setItem("auth_token", res.data.token);
-            localStorage.setItem("auth_name", res.data.username);
-            localStorage.setItem("currentuser", JSON.stringify(res.data.user));
-            swal("Success", res.data.message, "success");
-            navigate("/forgot");
-          } else if (
-            res.data.role === "encadrant" &&
-            res.data.statut === "désactiver"
-          ) {
-            swal("Warning", "votre compte est désactiver", "warning");
-          } else if (
-            res.data.role === "service formation" &&
-            res.data.statut === "activer" &&
-            res.data.firstlogin !== ""
-          ) {
-            localStorage.setItem("auth_token", res.data.token);
-            localStorage.setItem("auth_name", res.data.username);
-            localStorage.setItem("currentuser", JSON.stringify(res.data.user));
-            swal("Success", res.data.message, "success");
-            navigate("/serviceformation");
-          } else if (
-            res.data.role === "service formation" &&
-            res.data.statut === "activer" &&
-            res.data.firstlogin === ""
-          ) {
-            localStorage.setItem("auth_token", res.data.token);
-            localStorage.setItem("auth_name", res.data.username);
-            localStorage.setItem("currentuser", JSON.stringify(res.data.user));
-            swal("Success", res.data.message, "success");
-            navigate("/forgot");
-          } else if (
-            res.data.role === "service formation" &&
-            res.data.statut === "désactiver"
-          ) {
-            swal("Warning", "votre compte est désactiver", "warning");
-          }
+          navigate("/stagiaire");
         } else if (res.data.status === 401) {
           swal("Warning", "invalid Credentiels", "warning");
         } else {
@@ -113,16 +64,16 @@ function MainLogin() {
                         <div className="form-group">
                           <input
                             className="form-control"
-                            id="loginTopnet"
-                            type="text"
-                            name="loginTopnet"
-                            placeholder="Your loginTopnet*"
+                            id="email"
+                            type="email"
+                            name="email"
+                            placeholder="Votre email*"
                             onChange={handleInput}
-                            value={loginInput.loginTopnet}
+                            value={loginInput.email}
                           />
                         </div>
                         <span className="text-center text-white">
-                          {loginInput.error_list.loginTopnet}
+                          {loginInput.error_list.email}
                         </span>
                         <div className="form-group mb-md-0">
                           <input
@@ -154,7 +105,10 @@ function MainLogin() {
                   </form>
                 </div>
               </center>
-
+              <h5 className="section-heading ">
+                Don't have an account ?{" "}
+                <Link to="/satgiaire/register">Sign Up</Link>
+              </h5>
               <br />
               <Link to="/forgot">Forgot your password ?</Link>
             </div>
@@ -165,4 +119,4 @@ function MainLogin() {
   );
 }
 
-export default MainLogin;
+export default MainLogStag;

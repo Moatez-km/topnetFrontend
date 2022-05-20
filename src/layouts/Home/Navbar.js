@@ -47,11 +47,39 @@ const Navbar = () => {
                 Contact
               </a>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/login">
-                Sign In/Up
-              </Link>
-            </li>
+            <ul className="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+              <li className="nav-item dropdown">
+                <Link
+                  to="#"
+                  className="nav-link dropdown-toggle"
+                  id="navbarDropdown"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  Sign in/up
+                </Link>
+                <ul
+                  className="dropdown-menu dropdown-menu-end"
+                  aria-labelledby="navbarDropdown"
+                >
+                  <li>
+                    <Link className="dropdown-item" to="/login">
+                      Personnel Login
+                    </Link>
+                  </li>
+
+                  <li>
+                    <hr className="dropdown-divider" />
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="/stagiaire/login">
+                      Stagiaire login
+                    </Link>
+                  </li>
+                </ul>
+              </li>
+            </ul>
           </ul>
         </div>
       </div>
