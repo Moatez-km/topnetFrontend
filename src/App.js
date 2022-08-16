@@ -18,9 +18,14 @@ import AddResponses from "./components/serviceformation/AddResponses";
 import LoginStagiaire from "./layouts/Home/LoginStagiaire";
 import ProfileStage from "./components/stagiaire/ProfileStage";
 import StagiaireLayout from "./layouts/stagiaire/StagiaireLayout";
+import DashboardStage from "./components/stagiaire/DashboardStage";
 //encadrant
 import ProfileEnc from "./components/encadrant/ProfileEnc";
 import DashboardEnc from "./components/encadrant/Dashboard";
+import AddSujet from "./components/encadrant/AddSujet";
+import EncadrantLayout from "./layouts/Encadrant/EncadrantLayout";
+import ShowAllSujets from "./components/encadrant/ShowAllSujets";
+import SujetDetail from "./components/stagiaire/SujetDetail";
 //service formation
 import ProfileSer from "./components/serviceformation/ProfileSer";
 axios.defaults.baseURL = "http://localhost:8000/";
@@ -53,8 +58,14 @@ function App() {
           <Route path="/serviceformation/profile" element={<ProfileSer />} />
           <Route path="/stagiaire/profile" element={<ProfileStage />} />
           <Route path="/stagiaire" element={<StagiaireLayout />} />
+          <Route path="/stagiaire/Dashboard" element={<DashboardStage />} />
+          <Route path="/stagiaire/editSujet" element={<SujetDetail />} />
+
+          <Route path="/encadrant" element={<EncadrantLayout />} />
           <Route path="/encadrant/profile" element={<ProfileEnc />} />
           <Route path="/encadrant/dashboard" element={<DashboardEnc />} />
+          <Route path="/encadrant/addSujet" element={<AddSujet />} />
+          <Route path="/encadrant/allSujet" element={<ShowAllSujets />} />
         </Routes>
       </Router>
     </div>

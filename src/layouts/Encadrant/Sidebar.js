@@ -48,11 +48,11 @@ const sidebar = () => {
             data-bs-parent="#sidenavAccordion"
           >
             <nav className="sb-sidenav-menu-nested nav">
-              <Link className="nav-link" to="/addSujet">
+              <Link className="nav-link" to="/encadrant/addSujet">
                 Ajouter Sujet
               </Link>
-              <Link className="nav-link" to="/updateSujet">
-                Update Sujet
+              <Link className="nav-link" to="/encadrant/allSujet">
+                show all Sujets
               </Link>
             </nav>
           </div>

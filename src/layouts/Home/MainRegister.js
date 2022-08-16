@@ -52,7 +52,7 @@ function MainRegister() {
           localStorage.setItem("auth_name", res.data.username);
           swal("Success", res.data.message, "success");
 
-          navigate("/serviceformation");
+          navigate("/stagiaire/Dashboard");
         } else {
           setRegister({
             ...registerInput,
@@ -193,9 +193,8 @@ function MainRegister() {
                             className="form-control"
                             id="tel"
                             name="tel"
-                            type="tel"
+                            type="text"
                             placeholder="Votre numéro de téléphone*"
-                            data-sb-validations="required,Name"
                             onChange={handleInput}
                             value={registerInput.tel}
                           />

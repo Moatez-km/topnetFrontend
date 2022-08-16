@@ -11,7 +11,7 @@ const sidebar = () => {
       <div className="sb-sidenav-menu">
         <div className="nav">
           <div className="sb-sidenav-menu-heading">Core</div>
-          <Link className="nav-link" to="/admin/dashboard">
+          <Link className="nav-link" to="/stagiaire/Dashboard">
             <div className="sb-nav-link-icon">
               <MdDashboard size="1rem" color="white " />
             </div>

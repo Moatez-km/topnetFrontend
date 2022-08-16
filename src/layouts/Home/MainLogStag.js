@@ -31,7 +31,7 @@ function MainLogStag() {
 
           swal("Success", res.data.message, "success");
 
-          navigate("/stagiaire");
+          navigate("/stagiaire/Dashboard");
         } else if (res.data.status === 401) {
           swal("Warning", "invalid Credentiels", "warning");
         } else {
@@ -106,8 +106,7 @@ function MainLogStag() {
                 </div>
               </center>
               <h5 className="section-heading ">
-                Don't have an account ?{" "}
-                <Link to="/satgiaire/register">Sign Up</Link>
+                Don't have an account ? <Link to="/register">Sign Up</Link>
               </h5>
               <br />
               <Link to="/forgot">Forgot your password ?</Link>
