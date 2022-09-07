@@ -1,0 +1,87 @@
+.questions{
+    background-color: #f8f8f8;
+    border-left: 5px solid #1da1f2;
+    width: 80% ;
+    margin: auto 0 auto;
+    padding: 1.5rem 2rem;
+    align-content: center;
+    
+   
+}
+.lifeline-container{
+    display: flex;
+    justify-content: space-between;
+        
+}
+.lifeline {
+    position:relative;
+    top: -2px;
+}
+h5{
+    font-size: 1.2rem;
+    margin-bottom:3rem;
+    line-height:1.5;
+    text-align: center;
+}
+.options-container{
+    display: inline-block;
+    width: 50%;
+
+}
+.option{
+    background-color: #1da1f2;
+    border-radius: 30px;
+    color: white;
+    cursor: pointer;
+    margin: 2rem auto;
+    padding: 1rem ;
+    transition: 0.3s linear all;
+    text-align: center;
+    width: 90%;
+}
+.option:hover{
+    background-color: blue;
+}
+.button-container{
+    display: flex;
+    justify-content: flex-start;
+    margin: 0 auto 1.5rem auto;
+    padding: 2rem;
+    width: 80%;
+
+}
+.button-container button{
+    border: none;
+    color: #f8f8f8;
+    cursor: pointer;
+    font-family: 'Quicksand',sans-serif;
+    margin-right: 2rem;
+    padding: 0.5rem 1.5rem;
+}
+.button-container button:first-child{
+    background-color: #1A628F;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
+    transition: 0.2s linear all;
+}
+.button-container button:first-child:hover{
+    background-color: #184F72;
+
+}
+.button-container button:nth-child(2){
+    background-color: #2FF706;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
+    transition: 0.2s linear all;
+}
+.button-container button:nth-child(2):hover{
+    background-color: #34B919;
+
+}
+.button-container button:last-child{
+    background-color: #F80404;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,0.14),0 3px 1px -2px rgba(0,0,0,0.12),0 1px 5px 0 rgba(0,0,0,0.2);
+    transition: 0.2s linear all;
+}
+.button-container button:last-child:hover{
+    background-color: #BC1616;
+
+}

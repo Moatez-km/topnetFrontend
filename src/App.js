@@ -19,6 +19,8 @@ import LoginStagiaire from "./layouts/Home/LoginStagiaire";
 import ProfileStage from "./components/stagiaire/ProfileStage";
 import StagiaireLayout from "./layouts/stagiaire/StagiaireLayout";
 import DashboardStage from "./components/stagiaire/DashboardStage";
+//Quiz
+import Play from "./components/Quiz/Play";
 //encadrant
 import ProfileEnc from "./components/encadrant/ProfileEnc";
 import DashboardEnc from "./components/encadrant/Dashboard";
@@ -60,6 +62,7 @@ function App() {
           <Route path="/stagiaire" element={<StagiaireLayout />} />
           <Route path="/stagiaire/Dashboard" element={<DashboardStage />} />
           <Route path="/stagiaire/editSujet" element={<SujetDetail />} />
+          <Route path="/stagiaire/PlayQuiz" element={<Play />} />
 
           <Route path="/encadrant" element={<EncadrantLayout />} />
           <Route path="/encadrant/profile" element={<ProfileEnc />} />

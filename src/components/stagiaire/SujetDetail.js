@@ -106,7 +106,10 @@ class SujetDetail extends React.Component {
                 </div>
 
                 <hr />
-                <a href="#" class="btn btn-lg btn-primary text-uppercase">
+                <a
+                  href="/stagiaire/PlayQuiz"
+                  class="btn btn-lg btn-primary text-uppercase"
+                >
                   Apply now
                 </a>
               </article>
