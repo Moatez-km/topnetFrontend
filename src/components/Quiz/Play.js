@@ -8,7 +8,7 @@ import {
   MdOutlineQueryBuilder,
   MdOutlineLightbulb,
 } from "react-icons/md";
-
+import { useNavigate } from "react-router-dom";
 class Play extends React.Component {
   constructor(props) {
     super(props);
@@ -65,6 +65,12 @@ class Play extends React.Component {
       case "next-button":
         this.handleNextButtononClick();
         break;
+      case "previous-button":
+        this.handlePreviousButtononClick();
+        break;
+      case "quit-button":
+        this.handleQuitButtononClick();
+        break;
       default:
         break;
     }
@@ -84,6 +90,28 @@ class Play extends React.Component {
           );
         }
       );
+    }
+  };
+  handlePreviousButtononClick = () => {
+    if (this.state.previousQuestion !== undefined) {
+      this.setState(
+        (prevState) => ({
+          currentQuestionIndex: prevState.currentQuestionIndex - 1,
+        }),
+        () => {
+          this.displayQuestions(
+            this.state.state,
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion
+          );
+        }
+      );
+    }
+  };
+  handleQuitButtononClick = () => {
+    if (window.confirm("Are you sure you want to quit !")) {
+      this.props.navigate("/stagiaire/Dashboard");
     }
   };
 
@@ -207,5 +235,8 @@ class Play extends React.Component {
     );
   }
 }
-
-export default Play;
+const NWPlay = (props) => {
+  const navigate = useNavigate();
+  return <Play navigate={navigate} {...props} />;
+};
+export default NWPlay;
