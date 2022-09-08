@@ -3,11 +3,7 @@ import StagiaireLayout from "../../layouts/stagiaire/StagiaireLayout";
 import "../Quiz/play.css";
 import questions from "../Quiz/questions.json";
 import isEmpty from "../Quiz/utils/is-empty";
-import {
-  MdRemoveRedEye,
-  MdOutlineQueryBuilder,
-  MdOutlineLightbulb,
-} from "react-icons/md";
+import { MdOutlineQueryBuilder } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 class Play extends React.Component {
   constructor(props) {
@@ -29,6 +25,7 @@ class Play extends React.Component {
       usedFiftyFifty: false,
       time: {},
     };
+    this.interval = null;
   }
   displayQuestions = (
     questions = this.state.questions,
@@ -59,6 +56,7 @@ class Play extends React.Component {
       nextQuestion,
       previousQuestion
     );
+    this.startTimer();
   }
   handleButtononClick = (e) => {
     switch (e.target.id) {
@@ -157,31 +155,55 @@ class Play extends React.Component {
       }
     );
   };
+  startTimer = () => {
+    const countDownTime = Date.now() + 30000;
+    this.interval = setInterval(() => {
+      const now = new Date();
+      const distance = countDownTime.valueOf() - now.valueOf();
+
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+      if (distance < 0) {
+        clearInterval(this.interval);
+        this.setState(
+          {
+            time: {
+              minutes: 0,
+              seconds: 0,
+            },
+          },
+          () => {
+            alert("Quiz has ended!");
+            this.props.navigate("/stagiaire/Dashboard");
+          }
+        );
+      } else {
+        this.setState({
+          time: {
+            minutes,
+            seconds,
+          },
+        });
+      }
+    }, 1000);
+  };
   render() {
-    const { currentQuestion } = this.state;
+    const { currentQuestion, time } = this.state;
     return (
       <StagiaireLayout>
         <Fragment>
           <title>Quiz Page</title>
           <div className="questions">
             <h2>Quiz Mode</h2>
-            <div className="lifeline-container">
-              <p>
-                <MdRemoveRedEye></MdRemoveRedEye>
-                <span className="lifeline">2</span>
-              </p>
-              <p>
-                <MdOutlineLightbulb></MdOutlineLightbulb>
-                <span className="lifeline">5</span>
-              </p>
-            </div>
+
             <div className="lifeline-container">
               <p>
                 <span style={{ float: "left" }}>1 of 15</span>
               </p>
               <p>
                 <span className="lifeline">
-                  2:15<MdOutlineQueryBuilder></MdOutlineQueryBuilder>
+                  {time.minutes}:{time.seconds}
+                  <MdOutlineQueryBuilder></MdOutlineQueryBuilder>
                 </span>
               </p>
             </div>
