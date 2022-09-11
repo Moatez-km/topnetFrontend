@@ -1,6 +1,6 @@
 import React from "react";
 import StagiaireLayout from "../../layouts/stagiaire/StagiaireLayout";
-import { Link } from "react-router-dom";
+
 import "../stagiaire/SujetDetail";
 import axios from "axios";
 import swal from "sweetalert";
@@ -53,7 +53,7 @@ class SujetDetail extends React.Component {
               <article class="gallery-wrap">
                 <div class="img-big-wrap">
                   <div>
-                    <img src={TopAdmin} />
+                    <img alt="" src={TopAdmin} />
                   </div>
                 </div>
               </article>

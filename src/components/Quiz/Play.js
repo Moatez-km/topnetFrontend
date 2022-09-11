@@ -14,7 +14,7 @@ class Play extends React.Component {
       nextQuestion: {},
       previousQuestion: {},
       answer: "",
-      numberOfQuestions: 0,
+      numberOfQuestions: 15,
       numberOfAnsweredQuestions: 0,
       currentQuestionIndex: 0,
       score: 0,
@@ -23,6 +23,8 @@ class Play extends React.Component {
       hints: 5,
       fiftyFifty: 2,
       usedFiftyFifty: false,
+      nextButtonDisabled: false,
+      previousButtonDisabled: true,
       time: {},
     };
     this.interval = null;
@@ -39,12 +41,17 @@ class Play extends React.Component {
       nextQuestion = questions[currentQuestionIndex + 1];
       previousQuestion = questions[currentQuestionIndex - 1];
       const answer = currentQuestion.answer;
-      this.setState({
-        currentQuestion,
-        nextQuestion,
-        previousQuestion,
-        answer,
-      });
+      this.setState(
+        {
+          currentQuestion,
+          nextQuestion,
+          previousQuestion,
+          answer,
+        },
+        () => {
+          this.handleDisabledButton();
+        }
+      );
     }
   };
   componentDidMount() {
@@ -57,6 +64,9 @@ class Play extends React.Component {
       previousQuestion
     );
     this.startTimer();
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
   handleButtononClick = (e) => {
     switch (e.target.id) {
@@ -90,6 +100,33 @@ class Play extends React.Component {
       );
     }
   };
+  handleDisabledButton = () => {
+    if (
+      this.state.previousQuestion === undefined ||
+      this.state.currentQuestionIndex === 0
+    ) {
+      this.setState({
+        previousButtonDisabled: true,
+      });
+    } else {
+      this.setState({
+        previousButtonDisabled: false,
+      });
+    }
+
+    if (
+      this.state.nextQuestion === undefined ||
+      this.state.currentQuestionIndex + 1 === this.state.numberOfQuestions
+    ) {
+      this.setState({
+        nextButtonDisabled: true,
+      });
+    } else {
+      this.setState({
+        nextButtonDisabled: false,
+      });
+    }
+  };
   handlePreviousButtononClick = () => {
     if (this.state.previousQuestion !== undefined) {
       this.setState(
@@ -114,7 +151,7 @@ class Play extends React.Component {
   };
 
   handleOptionClick = (e) => {
-    if (e === this.state.answer.toLowerCase()) {
+    if (e === this.state.answer) {
       this.correctAnswer();
     } else {
       this.wrongAnswer();
@@ -129,12 +166,16 @@ class Play extends React.Component {
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1,
       }),
       () => {
-        this.displayQuestions(
-          this.state.questions,
-          this.state.currentQuestion,
-          this.state.nextQuestion,
-          this.state.previousQuestion
-        );
+        if (this.state.nextQuestion === undefined) {
+          this.endGame();
+        } else {
+          this.displayQuestions(
+            this.state.questions,
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion
+          );
+        }
       }
     );
   };
@@ -146,17 +187,21 @@ class Play extends React.Component {
         numberOfAnsweredQuestions: prevState.numberOfAnsweredQuestions + 1,
       }),
       () => {
-        this.displayQuestions(
-          this.state.questions,
-          this.state.currentQuestion,
-          this.state.nextQuestion,
-          this.state.previousQuestion
-        );
+        if (this.state.nextQuestion === undefined) {
+          this.endGame();
+        } else {
+          this.displayQuestions(
+            this.state.questions,
+            this.state.currentQuestion,
+            this.state.nextQuestion,
+            this.state.previousQuestion
+          );
+        }
       }
     );
   };
   startTimer = () => {
-    const countDownTime = Date.now() + 30000;
+    const countDownTime = Date.now() + 180000;
     this.interval = setInterval(() => {
       const now = new Date();
       const distance = countDownTime.valueOf() - now.valueOf();
@@ -173,8 +218,7 @@ class Play extends React.Component {
             },
           },
           () => {
-            alert("Quiz has ended!");
-            this.props.navigate("/stagiaire/Dashboard");
+            this.endGame();
           }
         );
       } else {
@@ -187,8 +231,35 @@ class Play extends React.Component {
       }
     }, 1000);
   };
+  endGame = () => {
+    alert("Quiz has ended !");
+    const { state } = this;
+    const playerStats = {
+      score: state.score,
+      numberOfQuestions: state.numberOfQuestions,
+      numberOfAnsweredQuestions: state.numberOfAnsweredQuestions,
+      correctAnswers: state.correctAnswers,
+      wrongAnswers: state.wrongAnswers,
+    };
+    localStorage.setItem(
+      "score",
+      (state.score / state.numberOfQuestions) * 100
+    );
+    localStorage.setItem("numberOfQuestions", state.numberOfQuestions);
+    localStorage.setItem(
+      "numberOfAnsweredQuestions",
+      state.numberOfQuestions - (state.correctAnswers + state.wrongAnswers)
+    );
+    localStorage.setItem("correctAnswers", state.correctAnswers);
+    localStorage.setItem("wrongAnswers", state.wrongAnswers);
+    console.log(playerStats);
+    setTimeout(() => {
+      this.props.navigate("/stagiaire/QuizSummary", playerStats);
+    }, 1000);
+  };
   render() {
-    const { currentQuestion, time } = this.state;
+    const { currentQuestion, time, numberOfQuestions, currentQuestionIndex } =
+      this.state;
     return (
       <StagiaireLayout>
         <Fragment>
@@ -198,7 +269,9 @@ class Play extends React.Component {
 
             <div className="lifeline-container">
               <p>
-                <span style={{ float: "left" }}>1 of 15</span>
+                <span style={{ float: "left" }}>
+                  {currentQuestionIndex + 1}of {numberOfQuestions}
+                </span>
               </p>
               <p>
                 <span className="lifeline">

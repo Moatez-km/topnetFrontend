@@ -21,6 +21,7 @@ import StagiaireLayout from "./layouts/stagiaire/StagiaireLayout";
 import DashboardStage from "./components/stagiaire/DashboardStage";
 //Quiz
 import Play from "./components/Quiz/Play";
+import QuizSummary from "./components/Quiz/QuizSummary";
 //encadrant
 import ProfileEnc from "./components/encadrant/ProfileEnc";
 import DashboardEnc from "./components/encadrant/Dashboard";
@@ -30,6 +31,7 @@ import ShowAllSujets from "./components/encadrant/ShowAllSujets";
 import SujetDetail from "./components/stagiaire/SujetDetail";
 //service formation
 import ProfileSer from "./components/serviceformation/ProfileSer";
+
 axios.defaults.baseURL = "http://localhost:8000/";
 axios.defaults.withCredentials = true;
 axios.interceptors.request.use(function (config) {
@@ -63,7 +65,7 @@ function App() {
           <Route path="/stagiaire/Dashboard" element={<DashboardStage />} />
           <Route path="/stagiaire/editSujet" element={<SujetDetail />} />
           <Route path="/stagiaire/PlayQuiz" element={<Play />} />
-
+          <Route path="/stagiaire/QuizSummary" element={<QuizSummary />} />
           <Route path="/encadrant" element={<EncadrantLayout />} />
           <Route path="/encadrant/profile" element={<ProfileEnc />} />
           <Route path="/encadrant/dashboard" element={<DashboardEnc />} />
